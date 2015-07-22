@@ -12,7 +12,6 @@ group :development, :test do
 end
 gem 'figaro', '>= 1.0.0.rc1'
 gem 'haml-rails'
-gem 'high_voltage'
 gem 'pg'
 gem 'rails_admin'
 group :development do
