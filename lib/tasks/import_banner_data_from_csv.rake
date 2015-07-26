@@ -2,10 +2,10 @@ require 'csv'
 
 namespace :import_banner_data_from_csv do
   desc "Import impressions, clicks and conversions from CSV files"
-  task :import_all => [:import_impressions, :import_clicks_and_conversions]
+  task :import_all => [:impressions, :clicks_and_conversions]
 
-  desc "Import impressions from impressions CSV file"
-  task :import_impressions => :environment do
+  desc "Import impressions"
+  task :impressions => :environment do
     impressions_file = Rails.root + 'private/impressions_1.csv'
 
     data = []
@@ -19,8 +19,8 @@ namespace :import_banner_data_from_csv do
     ActiveRecord::Base.connection.execute sql
   end
 
-  desc "Import clicks and conversions from CSV files"
-  task :import_clicks_and_conversions => :environment do
+  desc "Import clicks and conversions"
+  task :clicks_and_conversions => :environment do
     clicks_file = Rails.root + 'private/clicks_1.csv'
     conversions_file = Rails.root + 'private/conversions_1.csv'
 
