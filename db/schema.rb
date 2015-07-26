@@ -11,10 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722214702) do
+ActiveRecord::Schema.define(version: 20150726183245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "banners", force: :cascade do |t|
+    t.string "image_name"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+  end
+
+  create_table "clicks", force: :cascade do |t|
+    t.integer "banner_id"
+    t.integer "campaign_id"
+  end
+
+  add_index "clicks", ["banner_id"], name: "index_clicks_on_banner_id", using: :btree
+  add_index "clicks", ["campaign_id"], name: "index_clicks_on_campaign_id", using: :btree
+
+  create_table "conversions", force: :cascade do |t|
+    t.integer "click_id"
+    t.decimal "revenue",  precision: 15, scale: 10
+  end
+
+  add_index "conversions", ["click_id"], name: "index_conversions_on_click_id", using: :btree
+
+  create_table "impressions", force: :cascade do |t|
+    t.integer "banner_id"
+    t.integer "campaign_id"
+  end
+
+  add_index "impressions", ["banner_id"], name: "index_impressions_on_banner_id", using: :btree
+  add_index "impressions", ["campaign_id"], name: "index_impressions_on_campaign_id", using: :btree
 
   create_table "serves", force: :cascade do |t|
     t.integer "banner_id"
