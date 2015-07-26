@@ -11,9 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150722214702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "serves", force: :cascade do |t|
+    t.integer "banner_id"
+    t.integer "campaign_id"
+    t.integer "click_id"
+    t.integer "conversion_id"
+    t.decimal "revenue",       precision: 15, scale: 10
+  end
+
+  add_index "serves", ["campaign_id"], name: "index_serves_on_campaign_id", using: :btree
 
 end
