@@ -1,7 +1,7 @@
 Pete Sampras
 ================
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[Pistol Pete](http://www.wikiwand.com/en/Pete_Sampras)
 
 This application requires:
 
