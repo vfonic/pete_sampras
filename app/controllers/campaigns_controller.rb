@@ -1,6 +1,8 @@
 class CampaignsController < ApplicationController
   before_action :set_banner, only: :show
 
+  layout false
+
   def show
   end
 
