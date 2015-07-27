@@ -9,6 +9,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Conversion, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Conversion, type: :model do
+  it { should belong_to(:click) }
+  it { should delegate_method(:campaign).to(:click) }
+  it { should delegate_method(:banner).to(:click) }
 end
