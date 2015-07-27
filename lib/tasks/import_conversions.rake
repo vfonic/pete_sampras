@@ -2,8 +2,8 @@ require 'csv'
 
 namespace :import_banner_data_from_csv do
   desc "Import conversions to separate db table"
-  task :conversions_to_conversions_table => :environment do
-    conversions_file = Rails.root + 'private/conversions_1.csv'
+  task :conversions_to_conversions_table, [:conversions_file] => [:environment] do |_, args|
+    conversions_file = Rails.root + args.conversions_file
 
     data = []
     CSV.foreach(conversions_file, headers: true) do |row|
