@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: serves
+#
+#  id            :integer          not null, primary key
+#  banner_id     :integer
+#  campaign_id   :integer
+#  click_id      :integer
+#  conversion_id :integer
+#  revenue       :decimal(15, 10)
+#
+
 class Serve < ActiveRecord::Base
   include Servable
 

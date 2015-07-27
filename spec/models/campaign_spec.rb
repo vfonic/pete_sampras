@@ -1,3 +1,10 @@
+# == Schema Information
+#
+# Table name: campaigns
+#
+#  id :integer          not null, primary key
+#
+
 require 'rails_helper'
 
 RSpec.describe Campaign, type: :model do

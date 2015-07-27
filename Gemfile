@@ -16,10 +16,14 @@ gem 'haml-rails'
 gem 'pg'
 gem 'rails_admin'
 group :development do
+  gem 'annotate'
   gem 'better_errors'
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec'
+  gem 'guard-pow', require: false
+  gem 'terminal-notifier'
+  gem 'terminal-notifier-guard'
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'
@@ -44,4 +48,5 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', require: false
 end

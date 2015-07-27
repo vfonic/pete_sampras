@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: banners
+#
+#  id         :integer          not null, primary key
+#  image_name :string
+#
+
 require 'rails_helper'
 
 RSpec.describe Banner, type: :model do
