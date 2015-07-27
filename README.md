@@ -33,6 +33,7 @@ Implementation Details/Thoughts
 * method `CampaignsController#set_banner` does too much. It would be better to split that functionality into several components
 * method `CampaignsController#set_session_banners` does more than the name says. There should be an extra component for determining the logic how the banners should be returned (and we could easily replace it later with different logic if needed).
 * relaying on relational database's huge join query for selecting the top banners might not be the best idea in the long run
+* rake tasks should also have tests
 
 License
 -------
