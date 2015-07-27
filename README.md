@@ -29,7 +29,7 @@ Implementation Details/Thoughts
 -------------------------------
 
 * banner model specs should compute the data, not have the campaign and banner IDs hardcoded
-
+* due to having test data for previous point in the test database, I resort to using `Banner.find()` instead of calling `FactoryGirl.create(:banner)`
 
 License
 -------
