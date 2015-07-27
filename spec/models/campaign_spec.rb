@@ -7,6 +7,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Campaign, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Campaign, type: :model do
+  it { should have_many(:impressions) }
+  it { should have_many(:clicks) }
+  it { should have_many(:conversions).through(:clicks) }
+  it { should have_many(:banners).through(:clicks) }
+  it { should have_many(:impression_banners).through(:impressions).source(:banner) }
 end
