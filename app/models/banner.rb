@@ -3,16 +3,19 @@ class Banner < ActiveRecord::Base
   has_many :clicks
   has_many :conversions, through: :clicks
   has_many :campaigns, through: :clicks
+  has_many :impression_campaigns, through: :impressions, source: :campaign
 
   def self.top_banners(campaign:)
-    banners = top_banners_by_revenue(campaign: campaign)
+    banners = top_banners_by_revenue(campaign: campaign)[0...10]
 
     if banners.count < 5
-      banners += top_banners_by_clicks(campaign: campaign)
+      banners |= top_banners_by_clicks(campaign: campaign)
+      banners = banners[0...5]
     end
 
     if banners.count < 5
-      banners += top_banners_by_impressions(campaign: campaign)
+      banners |= impression_banners(campaign: campaign)
+      banners = banners[0...5]
     end
 
     banners
@@ -26,21 +29,16 @@ class Banner < ActiveRecord::Base
         .to_a
     end
 
-    def self.top_banners_by_clicks(campaign:, limit: 5)
-      where(campaign_id: campaign).group(:banner_id, :id)
-        .where(revenue: nil)
-        .select('SUM(revenue) AS sum_revenue, banners.*')
-        .order('sum_revenue desc NULLS LAST')
+    def self.top_banners_by_clicks(campaign:)
+      select('banners.*, COUNT(clicks.*) AS count_clicks')
+        .joins(:clicks)
+        .where('clicks.campaign_id = ?', campaign)
+        .group(:id)
+        .order('count_clicks DESC')
         .to_a
-        # .limit(limit)
     end
 
-    def self.top_banners_by_impressions(campaign:, limit: 5)
-      where(campaign_id: campaign).group(:banner_id, :id)
-        .where('revenue IS NOT NULL')
-        .select('SUM(revenue) AS sum_revenue, banners.*')
-        .order('sum_revenue desc NULLS LAST')
-        .to_a
-        # .limit(limit)
+    def self.impression_banners(campaign:)
+      Campaign.find(campaign).impression_banners.take(5)
     end
 end
