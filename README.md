@@ -25,6 +25,12 @@ RAILS_ENV=test rake db:setup
 rspec
 ```
 
+Implementation Details/Thoughts
+-------------------------------
+
+* banner model specs should compute the data, not have the campaign and banner IDs hardcoded
+
+
 License
 -------
 MIT
