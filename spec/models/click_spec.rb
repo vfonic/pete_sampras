@@ -9,6 +9,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Click, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Click, type: :model do
+  it { should belong_to(:banner) }
+  it { should belong_to(:campaign) }
+  it { should have_one(:conversion) }
+
 end
