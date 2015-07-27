@@ -9,29 +9,21 @@ class CampaignsController < ApplicationController
   private
     def set_banner
       # campaign/banner selection logic here
-      campaign = session[params[:campaign_id]]
-      campaign = set_session_banners(params) if campaign.blank?
+      banners_hash = session[params[:campaign_id]]
+      banners_hash = set_session_banners(campaign: params[:campaign_id]) unless banners_hash && banners_hash["banner_ids"].present?
 
-      campaign = campaign.with_indifferent_access
-
-      banner_ids = campaign[:banner_ids]
-
-      if banner_ids.blank?
-        campaign = set_session_banners(params)
-        banner_ids = campaign[:banner_ids]
-      end
+      banner_ids = banners_hash["banner_ids"]
 
       banner_id = banner_ids.shift
-      @banner = Banner.find(banner_id)
-      session[params[:campaign_id]][:banner_ids] = banner_ids
+      session[params[:campaign_id]]["banner_ids"] = banner_ids
 
-      @banner_ids = banner_ids
+      @banner = Banner.find(banner_id)
     end
 
-    def set_session_banners(params)
-      banners = Banner.top_banners(campaign: params[:campaign_id])
+    def set_session_banners(campaign:)
+      banners = Banner.top_banners(campaign: campaign)
       banners.shuffle!
-      session[params[:campaign_id]] = { banner_ids: banners.map(&:id) }
-      session[params[:campaign_id]]
+      session[campaign] = { "banner_ids" => banners.map(&:id) }
+      session[campaign]
     end
 end

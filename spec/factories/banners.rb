@@ -8,6 +8,6 @@
 
 FactoryGirl.define do
   factory :banner do
-    image_path "MyString"
+    image_name "MyString"
   end
 end
